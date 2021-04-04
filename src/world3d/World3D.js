@@ -183,6 +183,15 @@ export default class World3d {
             this.updateBezierEditorMode();
         });
 
+        editor.addFolder({
+            title: 'click and drag spheres'
+        })
+
+        editor.addFolder({
+            title: 'you can also move camera'
+        })
+
+
         this.editingPath = false;
         this.bezierEditor = new BezierEditor(this.gl, {visible: false});
         this.bezierEditor.setParent(this.scene);
@@ -269,7 +278,7 @@ export default class World3d {
             target: this.basePass,
         });
 
-        this.fogPass.update({camera: this.camera, depth: this.basePass.depthTexture, color: this.basePass.texture});
+        this.fogPass.update({camera: this.camera, depth: this.basePass.depthTexture, color: this.basePass.texture, dt});
 
         this.render({scene: this.fogPass});
 

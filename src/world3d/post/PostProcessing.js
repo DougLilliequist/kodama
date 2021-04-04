@@ -44,8 +44,8 @@ export default class PostProcessing {
         this.blurPass = new Post(this.gl, {
             width: this.gl.canvas.clientWidth*scale,
             height: this.gl.canvas.clientHeight*scale,
-            type: this.gl.HALF_FLOAT,
-            internalFormat: this.gl.RGBA16F
+            // type: this.gl.HALF_FLOAT || this.gl.renderer.extensions['OES_texture_half_float'].HALF_FLOAT_OES,
+            // internalFormat:  this.gl.renderer.isWebgl2 ? this.gl.RGBA16F : this.gl.RGBA,
         });
 
         let stepCount = 9;
@@ -158,6 +158,7 @@ export default class PostProcessing {
         this.fxaaPass.resize({width, height});
         this.blurPass.resize({width: width*0.25, height: height*0.25});
         this.fakeAtmospherePass.resize({width, height});
+        this.ditherPass.resize({width, height})
 
     }
 

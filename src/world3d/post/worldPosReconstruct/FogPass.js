@@ -105,6 +105,9 @@ export default class FogPass extends Mesh {
             },
             _Far: {
                 value: this.camera.far
+            },
+            _Time: {
+                value: 0
             }
 
         }
@@ -129,12 +132,13 @@ export default class FogPass extends Mesh {
 
     }
 
-    update({camera, depth, color}) {
+    update({camera, depth, color, dt}) {
 
         this.program.uniforms._MainCameraInvViewMatrix.value.copy(this.invViewMatrix.inverse(camera.viewMatrix));
         this.program.uniforms._CameraWorldPos.value.copy(camera.worldPosition);
         this.program.uniforms._Depth.value = depth;
         this.program.uniforms._BasePass.value = color;
+        this.program.uniforms._Time.value += dt;
 
 
     }
