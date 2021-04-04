@@ -18,11 +18,15 @@ export class Post {
             magFilter = gl.LINEAR,
             geometry = new Triangle(gl),
             targetOnly = null,
+            type = gl.UNSIGNED_BYTE,
+            internalFormat = gl.RGBA,
+
+
         } = {}
     ) {
         this.gl = gl;
 
-        this.options = { wrapS, wrapT, minFilter, magFilter };
+        this.options = { wrapS, wrapT, minFilter, magFilter, type, internalFormat };
 
         this.passes = [];
 

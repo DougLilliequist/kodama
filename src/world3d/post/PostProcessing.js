@@ -11,6 +11,7 @@ export default class PostProcessing {
         this.initFxaaPass();
         this.initBlurPass();
         this.initFakeAtmospherePass();
+        this.initDitherPass();
 
     }
 
@@ -42,8 +43,10 @@ export default class PostProcessing {
         const scale = 0.25;
         this.blurPass = new Post(this.gl, {
             width: this.gl.canvas.clientWidth*scale,
-            height: this.gl.canvas.clientHeight*scale
-        })
+            height: this.gl.canvas.clientHeight*scale,
+            type: this.gl.HALF_FLOAT,
+            internalFormat: this.gl.RGBA16F
+        });
 
         let stepCount = 9;
         for(let i = 0; i < stepCount; i++) {
@@ -52,8 +55,14 @@ export default class PostProcessing {
                 _StepSize: {
                     value: 0.5 + i
                 },
+                _Time: {
+                    value: 0
+                },
                 _Resolution: {
                     value: new Vec2(this.gl.canvas.clientWidth*scale, this.gl.canvas.clientHeight*scale)
+                },
+                _Seed: {
+                    value: i
                 }
             }   
     
@@ -64,16 +73,16 @@ export default class PostProcessing {
 
         }
 
-        const ditherUniforms = {
-            _Time: {
-                value: 0.0
-            }
-        }
+        // const ditherUniforms = {
+        //     _Time: {
+        //         value: 0.0
+        //     }
+        // }
 
-        this.blurPass.addPass({
-            uniforms: ditherUniforms,
-            fragment: require('./dither.glsl')
-        });
+        // this.blurPass.addPass({
+        //     uniforms: ditherUniforms,
+        //     fragment: require('./dither.glsl')
+        // });
 
     }
 
@@ -106,17 +115,42 @@ export default class PostProcessing {
 
     }
 
+    initDitherPass() {
+
+        this.ditherPass = new Post(this.gl, {
+            width: this.gl.canvas.clientWidth,
+            height: this.gl.canvas.clientHeight
+        })
+
+        const uniforms = {
+            _Time: {
+                value: 0
+            }
+        }   
+
+        this.ditherPass.addPass({
+            uniforms,
+            fragment: require('./dither.glsl')
+        });
+
+    }
+
     render({scene, depth, dt}) {
 
         this.fxaaPass.render({scene});
-
-        this.blurPass.passes[9].program.uniforms._Time.value += dt;
+        
+        this.blurPass.passes.forEach((pass) => {
+            pass.program.uniforms._Time.value += dt;
+        });
         this.blurPass.render({scene: this.fxaaPass.passes[0].mesh});
 
         this.fakeAtmospherePass.passes[0].program.uniforms._Blur = this.blurPass.uniform;
         this.fakeAtmospherePass.passes[0].program.uniforms._Depth.value = depth;
         this.fakeAtmospherePass.passes[0].program.uniforms._Time.value += dt;
         this.fakeAtmospherePass.render({scene: this.fxaaPass.passes[0].mesh});
+
+        this.ditherPass.passes[0].program.uniforms._Time.value += dt;
+        this.ditherPass.render({scene: this.fakeAtmospherePass.passes[0].mesh});
 
     }
 
