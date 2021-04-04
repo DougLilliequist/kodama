@@ -24,7 +24,7 @@ export class App {
         this.deltaTime = 0;
         this.ctaHidden = false;
 
-        this.World3d.gl.canvas.addEventListener("resize", this.onResize.bind(this));
+        window.addEventListener("resize", this.onResize.bind(this));
         this.World3d.gl.canvas.addEventListener('mousedown', this.onMouseDown);
         this.World3d.gl.canvas.addEventListener('mousemove', this.onMouseMove);
         this.World3d.gl.canvas.addEventListener('mouseup', this.onMouseUp);

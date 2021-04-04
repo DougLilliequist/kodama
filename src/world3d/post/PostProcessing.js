@@ -121,10 +121,9 @@ export default class PostProcessing {
     }
 
     onResize({width, height}) {
-
-        this.fxaaPass.onResize();
-        this.blurPass.onResize({width: width*0.25, height: height*0.25});
-        this.fakeAtmospherePass.onResize();
+        this.fxaaPass.resize({width, height});
+        this.blurPass.resize({width: width*0.25, height: height*0.25});
+        this.fakeAtmospherePass.resize({width, height});
 
     }
 

@@ -282,6 +282,7 @@ export default class World3d {
         this.camera.perspective({
             aspect: this.gl.canvas.clientWidth / this.gl.canvas.clientHeight
         });
+        this.post.onResize({width: this.gl.canvas.clientWidth, height: this.gl.canvas.clientHeight});
         
     }
 }
