@@ -8,7 +8,6 @@ uniform mat3 normalMatrix;
 
 uniform float _ShadowMapTexelSize;
 
-varying vec3 vNormal;
 varying vec3 vWorldPos;
 varying vec3 vLocalPos;
 varying vec2 vUv;

@@ -18,7 +18,6 @@ uniform mat4 shadowProjectionMatrix;
 uniform mat4 shadowViewMatrix;
 
 varying vec2 vUv;
-varying vec2 vNormal;
 varying vec3 vWorldPos;
 varying vec3 vLocalPos;
 varying vec4 vShadowCoord;
