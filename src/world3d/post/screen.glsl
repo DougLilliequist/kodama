@@ -40,16 +40,13 @@ void main() {
 
     vec3 layerA = texture2D(tMap, vUv).xyz;
     vec3 layerB = texture2D(_Blur, vUv).xyz;
-    // layerB = sqrt(layerB);
 
     vec3 screen = screenBlend(layerA, layerB);
-    // screen = sqrt(screen);
 
     vec3 hash1 = hash32(gl_FragCoord.xy+fract(_Time)*1300.0);
     vec3 hash2 = hash32(gl_FragCoord.yx+fract(_Time+0.3123)*1300.0);
     vec3 dither = ((hash1) + (hash2-1.0)) / 255.0;
 
     gl_FragColor = vec4(sqrt(screen) + dither, 1.0);
-    // gl_FragColor = vec4(layerB, 1.0);
 
 }
