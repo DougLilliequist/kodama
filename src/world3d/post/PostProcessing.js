@@ -110,7 +110,7 @@ export default class PostProcessing {
 
         this.fakeAtmospherePass.addPass({
             uniforms,
-            fragment: require('./screen.glsl')
+            fragment: require('./screen.glsl'),
         });
 
     }
@@ -149,8 +149,8 @@ export default class PostProcessing {
         this.fakeAtmospherePass.passes[0].program.uniforms._Time.value += dt;
         this.fakeAtmospherePass.render({scene: this.fxaaPass.passes[0].mesh});
 
-        this.ditherPass.passes[0].program.uniforms._Time.value += dt;
-        this.ditherPass.render({scene: this.fakeAtmospherePass.passes[0].mesh});
+        // this.ditherPass.passes[0].program.uniforms._Time.value += dt;
+        // this.ditherPass.render({scene: this.fakeAtmospherePass.passes[0].mesh});
 
     }
 
