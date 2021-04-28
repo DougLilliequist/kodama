@@ -47,6 +47,6 @@ void main() {
     vec3 hash2 = hash32(gl_FragCoord.yx+fract(_Time+0.3123)*1300.0);
     vec3 dither = ((hash1) + (hash2-1.0)) / 255.0;
 
-    gl_FragColor = vec4(sqrt(screen) + dither, 1.0);
+    gl_FragColor = vec4(screen + dither, 1.0);
 
 }
