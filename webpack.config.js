@@ -8,7 +8,7 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
-        host: '192.168.1.107',
+        host: 'localhost',
         port: '8080',
         https: true,
         hot: true

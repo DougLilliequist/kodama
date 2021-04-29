@@ -1,6 +1,6 @@
 export const params = {
 
-    SPATIALF: 0.033,
+    SPATIALF: 0.0413,
     TEMPORALF: 0.13,
     AMP: 0.023,
     MIN_LIFERATE: 0.03,

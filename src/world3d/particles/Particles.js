@@ -42,7 +42,7 @@ export default class Particles extends Mesh {
 
     initGeometry() {
         
-        const refGeometry = new Plane(this.gl, {width: 0.1, height: 0.1});
+        const refGeometry = new Plane(this.gl, {width: 0.2, height: 0.2});
         const {position, normal, uv, index} = refGeometry.attributes;
         const localPositionData = position.data;
         const normalData = normal.data;

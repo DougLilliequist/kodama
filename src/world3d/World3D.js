@@ -50,7 +50,7 @@ export default class World3d {
         });
         this.camera.position.x = 0.0;
         this.camera.position.y = 10.0;
-        this.camera.position.z = 28.0;
+        this.camera.position.z = 42.0;
         
         this.orbitCamera = new Orbit(this.camera, {
             element: this.gl.canvas

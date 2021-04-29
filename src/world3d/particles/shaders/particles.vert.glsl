@@ -39,6 +39,14 @@ vec2 hash23(vec3 p3)
     return fract((p3.xx+p3.yz)*p3.zy);
 }
 
+vec2 hash22(vec2 p)
+{
+	vec3 p3 = fract(vec3(p.xyx) * vec3(.1031, .1030, .0973));
+    p3 += dot(p3, p3.yzx+33.33);
+    return fract((p3.xx+p3.yz)*p3.zy);
+
+}
+
 float inShadow(vec2 coord, vec2 offset, float depth) {
 
     if(coord.x < -1.0 || coord.x > 1.0) return 1.0;
@@ -46,8 +54,9 @@ float inShadow(vec2 coord, vec2 offset, float depth) {
     if(depth < -1.0 || depth > 1.0) return 1.0;
 
     // vec2 jitter = (hash23(vec3((coord + offset)*2000.0, depth)-0.5)) * _ShadowMapTexelSize;
-    vec2 jitter = (hash23(vec3((coord + offset)*3000.0, depth)*2.0-1.0)) * _ShadowMapTexelSize;
-    float occluder = unpackRGBA(texture2D(tShadow, coord + jitter));
+    // vec2 jitter = (hash23(vec3((coord + offset)*3000.0, depth*3000.0)*2.0-1.0)) * _ShadowMapTexelSize;
+    vec2 jitter = (hash22(vec2((coord + offset)*3000.0)*2.0-1.0)) * _ShadowMapTexelSize;
+    float occluder = unpackRGBA(texture2D(tShadow, coord + offset + jitter));
     if(depth-BIAS > occluder) {
         return 1.0;
     } else {
