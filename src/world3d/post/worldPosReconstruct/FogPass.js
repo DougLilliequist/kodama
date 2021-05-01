@@ -125,10 +125,10 @@ export default class FogPass extends Mesh {
         const h = Math.tan((this.camera.fov * (Math.PI / 180.0)) * 0.5) * this.camera.far
         const w = h * this.camera.aspect;
 
-        this.corners[0].set(-w, h, this.camera.far);
-        this.corners[1].set(w, h, this.camera.far);
-        this.corners[2].set(-w, -h, this.camera.far);
-        this.corners[3].set(w, -h, this.camera.far);
+        this.corners[0].set(-w, h, -this.camera.far);
+        this.corners[1].set(w, h, -this.camera.far);
+        this.corners[2].set(-w, -h, -this.camera.far);
+        this.corners[3].set(w, -h, -this.camera.far);
 
     }
 

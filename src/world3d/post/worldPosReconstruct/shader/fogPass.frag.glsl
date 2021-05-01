@@ -37,9 +37,7 @@ void main() {
 
     vec3 viewRay = vViewRay * (depth/_Far);
 
-    //Have to subtract with the camera position as OGL
-    //looks down the positive Z axis
-    vec3 worldPos = viewRay - _CameraWorldPos;
+    vec3 worldPos = viewRay + _CameraWorldPos;
     float dist = length(worldPos);
     float fog = smoothstep(0.0, 20.0, dist);
 
